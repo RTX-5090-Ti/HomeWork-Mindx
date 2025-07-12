@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: antiquewhite;
+}
+.main {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.number {
+  color: #25252573;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+.title {
+  color: #252525cc;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+}
+.star-top img {
+  position: absolute;
+  top: 235px;
+  left: 315px;
+  width: 225px;
+  height: 320px;
+  z-index: 1;
+}
+.star-bottom img {
+  position: absolute;
+  right: 325px;
+  bottom: 245px;
+  width: 191px;
+  height: 242px;
+  z-index: 1;
+}
+.explosion img {
+  width: 179.91px;
+  height: 176.57px;
+  position: absolute;
+  top: 235px;
+  left: 105px;
+}
+.party img {
+  width: 174px;
+  height: 173.51px;
+  position: absolute;
+  right: 130px;
+  bottom: 205px;
+  z-index: 1;
+}
+.text-1 {
+  position: absolute;
+  top: 100px;
+  left: 65px;
+  width: 434px;
+  height: 104px;
+}
+.text-2 {
+  position: absolute;
+  right: 65px;
+  bottom: 100px;
+  width: 434px;
+  height: 104px;
+}
+.img-top {
+  position: absolute;
+  top: 65px;
+  right: 65px;
+}
+.img-bottom {
+  position: absolute;
+  left: 65px;
+  bottom: 65px;
+}
+.content {
+  width: 637px;
+  height: 614px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content-img {
+  position: absolute;
+  transform: scale(1.5);
+}
+.content-img img {
+  width: 446px;
+  height: 711px;
+}
+.content-title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content-title h1 {
+  font-weight: 400;
+  font-size: 112px;
+  line-height: 108px;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #252525;
+}
+.content-title p {
+  width: 306px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #252525cc;
+  margin-bottom: 25px;
+}
+.content-title button {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 18px;
+  color: #ffffff;
+  background-color: #252525;
+  width: 182px;
+  height: 66px;
+  border-radius: 36px;
+  text-align: center;
+}
