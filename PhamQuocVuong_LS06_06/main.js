@@ -46,7 +46,7 @@ const average = function () {
   const ones = Number(one.value);
   const twos = Number(two.value);
   const threes = Number(three.value);
-  let num3 = ones + twos + threes;
+  let num3 = (ones + twos + threes) / 3;
   console.log(num3);
   console.log(`Trung bình cộng ba số là: ${num3}`);
   result3.innerHTML = `Trung bình cộng ba số là: ${num3}`;
