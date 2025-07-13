@@ -194,9 +194,7 @@ img {
 }
 /* style cho phan Top Places */
 .content1-right {
-  /* max-width: 772px; */
   height: 713px;
-  /* position: relative; */
 }
 .box-right-position {
   position: relative;
@@ -257,8 +255,6 @@ img {
   position: absolute;
   top: 24.66%;
   left: 11.79%;
-  /* right: 0; */
-  /* width: 100%; */
   max-width: 575px;
   display: flex;
   gap: 31px;
@@ -282,12 +278,6 @@ content1-imgs {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-/* .background {
-  position: absolute;
-  border: 1px solid black;
-  right: 0;
-  transform: translate(21.55%, -50%);
-} */
 /* responsive */
 @media screen and (max-width: 1023.98px) {
   /* style cho phan header  */
@@ -412,10 +402,6 @@ content1-imgs {
   .content1-left-button-start,
   .content1-left-button-demo {
     width: 100%;
-    /* text-align: center; */
-
-    /* display: block; */
-    /* padding: 0; */
   }
   .content1-left-button-demo {
     justify-content: center;

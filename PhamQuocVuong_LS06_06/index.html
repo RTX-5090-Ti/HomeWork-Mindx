@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Thực Hành Lesson 6</title>
+  </head>
+  <body>
+    <div class="main">
+      <h2>Câu 1</h2>
+      <p>Cho length bằng 10, width bằng 15</p>
+      <p>Diện tích hình chữ nhật là: 150, chu vi là 50</p>
+      <h2>Câu 2</h2>
+      <p>Chuyển đổi số S (giây) nhập từ người dùng thành dạng giờ-phút-giây.</p>
+      <input type="number" name="" id="second" placeholder="Nhập số giây" />
+      <button type="submit" id="butt">Chuyển đổi</button>
+      <br />
+      <span id="result-1"></span>
+      <h2>Câu 3</h2>
+      <p>Tính luỹ thừa</p>
+      <input
+        type="number"
+        name=""
+        id="luythua"
+        placeholder="Nhập số luỹ thừa"
+      />
+      <input type="number" name="" id="coso" placeholder="Nhập cơ số" />
+      <button type="submit" id="butt-2">Kết quả</button>
+      <br />
+      <span id="result-2"></span>
+      <h2>Câu 4</h2>
+      <p>Tính trung bình 3 số bất kì</p>
+      <input type="number" name="" id="one" placeholder="Nhập số thứ nhất" />
+      <input type="number" name="" id="two" placeholder="Nhập số thứ 2" />
+      <input type="number" name="" id="three" placeholder="Nhập số thứ 3" />
+      <button id="butt-3">Kết quả</button> <br />
+      <span id="result-3"></span>
+      <h2>Câu 5</h2>
+      <p>Khoảng cách giữa hai điểm trong không gian 2D</p>
+      <input type="number" name="" id="numx-1" placeholder="Nhập toạ độ x-1" />
+      <input type="number" name="" id="numy-1" placeholder="Nhập toạ đọ y-1" />
+      <input type="number" name="" id="numx-2" placeholder="Nhập toạ độ x-2" />
+      <input type="number" name="" id="numy-2" placeholder="Nhập toạ đọ y-2" />
+      <button id="butt-4">Kết quả</button> <br />
+      <span id="result-4"></span>
+      <h2>Câu 6</h2>
+      <p>Số đầu tiên có phải là số lớn nhất</p>
+      <input type="number" name="" id="num-1" placeholder="Nhập số đầu tiên" />
+      <input type="number" name="" id="num-2" placeholder="Nhập số thứ 2" />
+      <input type="number" name="" id="num-3" placeholder="Nhập số thứ 3" />
+      <button id="butt-5">Kết quả</button> <br />
+      <span id="result-5"></span>
+      <h2>Câu 7</h2>
+      <p>So sánh hai chuỗi nhập từ người dùng</p>
+      <input type="text" name="" id="string-1" placeholder="Nhập chuổi 1" />
+      <input type="text" name="" id="string-2" placeholder="Nhập chuổi 2" />
+      <button id="butt-6">So sánh</button> <br />
+      <span id="result-6"></span>
+      <h2>Câu 8</h2>
+      <p>Kiểm tra số dương nhập vào từ bàn phím</p>
+      <input type="number" name="" id="num-7" placeholder="Nhập số bất kì" />
+      <button id="butt-7">Kiểm tra</button> <br />
+      <span id="result-7"></span>
+      <h3>Câu 9</h3>
+      <p>Kiểm tra năm nhuận</p>
+      <input
+        type="number"
+        name=""
+        id="year"
+        placeholder="Nhập 1 năm bất kì"
+        oninput="this.value=this.value.slice(0,4)"
+      />
+      <button id="butt-8">Kiểm tra</button> <br />
+      <span id="result-8"></span>
+      <h2>Câu 10</h2>
+      <p>So sánh hai thời gian</p>
+      <input
+        type="number"
+        name=""
+        id="hour-1"
+        placeholder="Nhập giờ thứ nhất"
+        oninput="this.value=this.value.slice(0,2)"
+      />
+      <input
+        type="number"
+        name=""
+        id="minute-1"
+        placeholder="Nhập số phút thứ nhất"
+        oninput="this.value=this.value.slice(0,2)"
+      />
+      <br />
+      <input
+        type="number"
+        name=""
+        id="hour-2"
+        placeholder="Nhập giờ  thứ hai"
+        oninput="this.value=this.value.slice(0,2)"
+      />
+      <input
+        type="number"
+        name=""
+        id="minute-2"
+        placeholder="Nhập số phút thứ hai"
+        oninput="this.value=this.value.slice(0,2)"
+        s
+      />
+      <br />
+      <button id="butt-9">So sánh</button> <br />
+      <span id="result-9"></span>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
