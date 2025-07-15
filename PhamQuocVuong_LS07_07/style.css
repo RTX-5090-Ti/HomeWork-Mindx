@@ -1,0 +1,11 @@
+.main {
+  width: 700px;
+  /* height: 500px; */
+  padding: 20px;
+  background-color: antiquewhite;
+  margin: 0 auto;
+}
+.main span {
+  display: inline-block;
+  margin-top: 15px;
+}
