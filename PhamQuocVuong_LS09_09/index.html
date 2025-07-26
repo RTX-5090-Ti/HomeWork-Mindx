@@ -3,9 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Thực Hành Lesson</title>
+    <style>
+        .chart {
+              width: 300px;
+              height: 300px;
+              border-radius: 50%;
+              background: conic-gradient(
+                #4b4bff 0% 25%,
+                /* 25% */ #4bd4ff 25% 50%,
+                /* 25% */ #ff3333 50% 68%,
+                /* 18% */ #2b8a99 68% 100% /* 32% */
+              );
+              margin: 50px auto;
+              position: relative;/
+            }
+        .chart::before {
+            content: "Tasks";
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: #1b2a4e;
+          }
+          .label {
+        position: absolute;
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        transform: translate(-50%, -50%);
+      }
+        .label1 { top: 25%; left: 70%; }
+        .label2 { top: 70%; left: 70%; }
+        .label3 { top: 80%; left: 35%; }
+        .label4 { top: 35%; left: 25%; }
+    </style>
   </head>
   <body>
     <script src="./main.js"></script>
+    <div class="chart">
+      <div class="label label1">25%</div>
+      <div class="label label2">25%</div>
+      <div class="label label3">18%</div>
+      <div class="label label4">32%</div>
+    </div>
   </body>
 </html>
