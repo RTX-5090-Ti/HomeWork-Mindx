@@ -150,9 +150,9 @@ const compareTime = function () {
     h2 >= 0 &&
     h2 < 24 &&
     m1 >= 0 &&
-    m1 <= 60 &&
+    m1 < 60 &&
     m2 >= 0 &&
-    m2 <= 60
+    m2 < 60
   ) {
     let num1 = h1 * 60 + m1;
     let num2 = h2 * 60 + m2;
