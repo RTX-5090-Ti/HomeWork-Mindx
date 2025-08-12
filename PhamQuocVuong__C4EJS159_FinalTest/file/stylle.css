@@ -32,6 +32,7 @@ span {
   box-shadow: 0px 3px 35px 0px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 30px;
   align-items: center;
   padding-bottom: 40px;
@@ -86,6 +87,7 @@ span {
 /* style Phàn nội dung  trò chơi */
 .content {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   align-items: flex-start;
   width: 80%;
@@ -192,6 +194,7 @@ span {
   align-items: center;
 }
 .right-move-title {
+  text-align: center;
   font-size: 14px;
   font-weight: 700;
 }
@@ -257,34 +260,66 @@ td {
 .hidden {
   display: none;
 }
-
-/* Hiệu ứng  tung  bông */
-/* Confetti overlay */
-/* .confetti-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 9999;
-} */
-
-/* Mỗi mảnh giấy */
-/* .confetti {
-  position: absolute;
-  width: 8px;
-  height: 14px;
-  will-change: transform, opacity;
-  animation: confetti-fall linear forwards;
-} */
-
-/* Rơi + xoay */
-/* @keyframes confetti-fall {
-  0% {
-    transform: translate3d(var(--x, 0), -10vh, 0) rotate(0deg);
-    opacity: 1;
+/* responsive */
+@media (max-width: 767px) {
+  .main {
+    gap: 10px;
+    width: 100%;
   }
-  100% {
-    transform: translate3d(var(--x, 0), 110vh, 0) rotate(720deg);
-    opacity: 0;
+  .content {
+    width: 100%;
   }
-} */
+  .content-left {
+    width: 100%;
+  }
+  .content-right {
+    width: 100%;
+  }
+  .left-item {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .right-time {
+    gap: 15px;
+    padding: 10px;
+  }
+  .right-time-clock {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .right-time-count {
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .key {
+    width: 25px;
+  }
+  .footer-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .footer {
+    gap: 10px;
+  }
+  .footer-table tr th {
+    font-size: 12px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    width: 100%;
+    gap: 10px;
+  }
+  .content {
+    width: 100%;
+  }
+  .content-left {
+    width: calc(75% - 10px);
+  }
+  .content-right {
+    width: calc(25% - 10px);
+  }
+  .right-move-title {
+    text-align: center;
+  }
+}
