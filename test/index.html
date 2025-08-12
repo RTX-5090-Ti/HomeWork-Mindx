@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trò xếp hình 15 (Sliding Puzzle)</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --ink: #111827;
+        --muted: #6b7280;
+        --ok: #10b981;
+        --danger: #ef4444;
+        --tile: #e5e7eb;
+        --gap: 14px;
+        --radius: 18px;
+        --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial,
+          sans-serif;
+        color: var(--ink);
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 28px auto;
+        padding: 18px;
+      }
+      .board-card {
+        background: var(--card);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      button.primary {
+        background: #22c55e;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 6px 14px rgba(34, 197, 94, 0.35);
+      }
+      button.primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        gap: 22px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--gap);
+        padding: var(--gap);
+        background: #eef2ff;
+        border-radius: 24px;
+      }
+      .tile {
+        position: relative;
+        aspect-ratio: 1/1;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 28px;
+        user-select: none;
+        transition: transform 0.08s ease, box-shadow 0.2s ease;
+      }
+      .tile:not(.blank) {
+        background: var(--card);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+      }
+      .tile.blank {
+        background: #0b0b0b;
+      }
+      .tile:active {
+        transform: scale(0.98);
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .widget {
+        background: var(--card);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+      }
+      .clock {
+        font-size: 36px;
+        font-weight: 900;
+        color: #065f46;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead th {
+        background: #eef2ff;
+        color: #374151;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 10px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+      tbody td {
+        padding: 10px;
+        border-top: 1px solid #e5e7eb;
+        font-size: 14px;
+      }
+      .history {
+        background: var(--card);
+        box-shadow: var(--shadow);
+        border-radius: 18px;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .kbd {
+        display: inline-grid;
+        grid-template-columns: repeat(3, 36px);
+        gap: 6px;
+      }
+      .key {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 6px 0;
+        text-align: center;
+        background: #f8fafc;
+        font-weight: 700;
+      }
+      .row {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="board-card">
+        <div class="topbar">
+          <button id="startBtn" class="primary">Bắt đầu</button>
+          <div class="muted">
+            Dùng chuột hoặc phím mũi tên / WASD để di chuyển
+          </div>
+        </div>
+
+        <div class="layout">
+          <div>
+            <div id="grid" class="grid" aria-label="Bàn cờ 4x4"></div>
+          </div>
+          <aside class="panel">
+            <div class="widget">
+              <div class="muted">Đồng hồ</div>
+              <div id="clock" class="clock">00:00</div>
+              <div class="muted">Bước đi: <span id="moves">0</span></div>
+            </div>
+            <div class="widget">
+              <div class="muted" style="margin-bottom: 8px">
+                Hướng dẫn di chuyển
+              </div>
+              <div class="row"><span class="key">↑</span></div>
+              <div class="row">
+                <span class="key">←</span><span class="key">↓</span
+                ><span class="key">→</span>
+              </div>
+              <div class="row" style="margin-top: 6px">
+                <span class="key">W</span><span class="key">A</span
+                ><span class="key">S</span><span class="key">D</span>
+              </div>
+            </div>
+            <button
+              id="shuffleBtn"
+              class="primary"
+              style="
+                background: #0ea5e9;
+                box-shadow: 0 6px 14px rgba(14, 165, 233, 0.35);
+              "
+            >
+              Xáo trộn
+            </button>
+          </aside>
+        </div>
+      </div>
+
+      <div class="history" style="margin-top: 22px">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 60px">#</th>
+              <th>Trạng thái</th>
+              <th>Thời gian</th>
+              <th>Bước đi</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const gridEl = document.getElementById("grid");
+      const startBtn = document.getElementById("startBtn");
+      const shuffleBtn = document.getElementById("shuffleBtn");
+      const clockEl = document.getElementById("clock");
+      const movesEl = document.getElementById("moves");
+      const historyBody = document.getElementById("historyBody");
+
+      const GOAL = [...Array(15).keys()].map((n) => n + 1).concat(0); // 1..15, 0 là ô trống
+
+      let tiles = [...GOAL];
+      let playing = false;
+      let timer = null;
+      let ms = 0;
+      let moves = 0;
+      let gameCount = 0;
+
+      function formatTime(ms) {
+        const s = Math.floor(ms / 1000);
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
+      }
+
+      function startTimer() {
+        if (timer) return;
+        timer = setInterval(() => {
+          ms += 1000;
+          clockEl.textContent = formatTime(ms);
+        }, 1000);
+      }
+      function stopTimer() {
+        clearInterval(timer);
+        timer = null;
+      }
+      function resetTimer() {
+        stopTimer();
+        ms = 0;
+        clockEl.textContent = "00:00";
+      }
+
+      function render() {
+        gridEl.innerHTML = "";
+        tiles.forEach((v, idx) => {
+          const tile = document.createElement("div");
+          tile.className = "tile" + (v === 0 ? " blank" : "");
+          tile.dataset.index = idx;
+          if (v !== 0) {
+            tile.textContent = v;
+            tile.style.color = pickColor(v);
+          }
+          tile.onclick = () => tryMove(idx);
+          gridEl.appendChild(tile);
+        });
+      }
+
+      function pickColor(n) {
+        const palette = [
+          "#16a34a",
+          "#ef4444",
+          "#3b82f6",
+          "#8b5cf6",
+          "#f59e0b",
+          "#ec4899",
+          "#60a5fa",
+          "#9ca3af",
+          "#34d399",
+          "#fbbf24",
+          "#a3e635",
+          "#22d3ee",
+          "#c084fc",
+          "#fb7185",
+          "#10b981",
+        ];
+        return palette[(n - 1) % palette.length];
+      }
+
+      function tryMove(index) {
+        if (!playing) return;
+        const blank = tiles.indexOf(0);
+        const neighbors = neighborIndexes(blank);
+        if (neighbors.includes(index)) {
+          [tiles[blank], tiles[index]] = [tiles[index], tiles[blank]];
+          moves++;
+          movesEl.textContent = moves;
+          render();
+          if (arrEq(tiles, GOAL)) win();
+        }
+      }
+
+      function neighborIndexes(i) {
+        const res = [];
+        const r = Math.floor(i / 4),
+          c = i % 4;
+        if (r > 0) res.push(i - 4);
+        if (r < 3) res.push(i + 4);
+        if (c > 0) res.push(i - 1);
+        if (c < 3) res.push(i + 1);
+        return res;
+      }
+
+      function shuffleSolvable() {
+        do {
+          tiles = shuffle([...GOAL]);
+        } while (!isSolvable(tiles) || arrEq(tiles, GOAL));
+        render();
+      }
+
+      function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function inversions(arr) {
+        const vals = arr.filter((x) => x !== 0);
+        let inv = 0;
+        for (let i = 0; i < vals.length; i++)
+          for (let j = i + 1; j < vals.length; j++)
+            if (vals[i] > vals[j]) inv++;
+        return inv;
+      }
+
+      // Lưới 4x4: nghiệm khi (inversions + hàng của ô trống tính từ dưới lên) là SỐ LẺ
+      function isSolvable(arr) {
+        const inv = inversions(arr);
+        const blankIndex = arr.indexOf(0); // 0..15
+        const rowFromBottom = 4 - Math.floor(blankIndex / 4); // 1..4
+        return (inv + rowFromBottom) % 2 === 1;
+      }
+
+      function arrEq(a, b) {
+        return a.length === b.length && a.every((v, i) => v === b[i]);
+      }
+
+      function newGame() {
+        playing = true;
+        moves = 0;
+        movesEl.textContent = "0";
+        resetTimer();
+        startTimer();
+        shuffleSolvable();
+      }
+
+      function win() {
+        playing = false;
+        stopTimer();
+        gameCount++;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${gameCount}</td><td>Hoàn thành</td><td>${formatTime(
+          ms
+        )}</td><td>${moves}</td>`;
+        historyBody.prepend(tr);
+        alert("🎉 Giỏi quá! Bạn đã giải xong.");
+      }
+
+      // Keyboard controls
+      window.addEventListener("keydown", (e) => {
+        if (!playing) return;
+        const blank = tiles.indexOf(0);
+        const r = Math.floor(blank / 4),
+          c = blank % 4;
+        let target = null;
+        if (["ArrowUp", "w", "W"].includes(e.key) && r < 3) target = blank + 4; // ô phía dưới trống đi lên
+        if (["ArrowDown", "s", "S"].includes(e.key) && r > 0)
+          target = blank - 4;
+        if (["ArrowLeft", "a", "A"].includes(e.key) && c < 3)
+          target = blank + 1;
+        if (["ArrowRight", "d", "D"].includes(e.key) && c > 0)
+          target = blank - 1;
+        if (target !== null) {
+          tryMove(target);
+          e.preventDefault();
+        }
+      });
+
+      startBtn.addEventListener("click", newGame);
+      shuffleBtn.addEventListener("click", () => {
+        if (playing) {
+          shuffleSolvable();
+          moves = 0;
+          movesEl.textContent = "0";
+          resetTimer();
+          startTimer();
+        }
+      });
+
+      // Khởi tạo giao diện ban đầu (không chạy đồng hồ)
+      render();
+    </script>
+  </body>
+</html>
