@@ -85,7 +85,7 @@ function inversions(arr) {
   }
   return invalid;
 }
-function isSovable(arr) {
+function isSolvable(arr) {
   const invalid = inversions(arr);
   const indexBlank = arr.indexOf(0);
   const rowFromBottom = 3 - Math.floor(indexBlank / 4); // 3 hang, 4 cot
@@ -100,7 +100,7 @@ function shuffleSolvable() {
   let arr;
   do {
     arr = shuffle([...items]);
-  } while (!isSovable(arr) || arr.every((a, b) => a === items[b]));
+  } while (!isSolvable(arr) || arr.every((a, b) => a === items[b]));
   itemsCopy = arr;
   renderGirdBox();
   //   setupOneMoveToWin();s
@@ -118,11 +118,11 @@ function nextToIndex(i) {
 function testMove(index) {
   const blank = itemsCopy.indexOf(0); // Tìm ô đen đang ở đâu
   const nextIndex = nextToIndex(blank); // tim ô kế bên ô đen
-  moves++;
   if (!nextIndex.includes(index)) {
     return; // nếu không có ô kế  thì bỏ qua
   }
   [itemsCopy[blank], itemsCopy[index]] = [itemsCopy[index], itemsCopy[blank]]; //đỏi chổ
+  moves++;
   renderGirdBox();
   if (isWin()) {
     countGame++;
@@ -139,7 +139,7 @@ window.addEventListener("keydown", (e) => {
   const row = Math.floor(blank / 4); // hàng trống
   const colum = blank % 4; //  cột  trống
   let target = null;
-  moves++;
+
   if (["ArrowDown", "S", "s"].includes(e.key) && row < 2) target = blank + 4;
   if (["ArrowUp", "W", "w"].includes(e.key) && row > 0) target = blank - 4;
   if (["ArrowRight", "D", "d"].includes(e.key) && colum < 3) target = blank + 1;
@@ -150,8 +150,9 @@ window.addEventListener("keydown", (e) => {
       itemsCopy[target],
       itemsCopy[blank],
     ];
+    moves++;
+    renderGirdBox();
   }
-  renderGirdBox();
   if (isWin()) {
     countGame++;
     stopTime();
